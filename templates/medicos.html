@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Médicos</h2>
+
+  <!-- Formulario para agregar -->
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+      Registrar Médico
+    </div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('medicos') }}">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre completo</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" required>
+        </div>
+        <button type="submit" class="btn btn-success">Guardar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lista de médicos -->
+  <div class="card">
+    <div class="card-header bg-secondary text-white">
+      Lista de Médicos
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-striped m-0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for medico in medicos %}
+          <tr>
+            <td>{{ medico[0] }}</td>
+            <td>{{ medico[1] }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="2" class="text-center">No hay médicos registrados</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

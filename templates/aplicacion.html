@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Registrar Aplicación</h2>
+
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+      Nueva Aplicación
+    </div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('aplicaciones', paciente_id=paciente_id) }}">
+        
+        <!-- Fecha de la aplicación -->
+        <div class="mb-3">
+          <label for="fecha" class="form-label">Fecha</label>
+          <input type="date" class="form-control" id="fecha" name="fecha" required>
+        </div>
+
+        <!-- Selección de insumos -->
+        <h5 class="mt-4">Insumos Utilizados</h5>
+        {% if insumos %}
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Insumo</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for insumo in insumos %}
+            <tr>
+              <td>{{ insumo['nombre'] }}</td>
+              <td>
+                <input type="number" class="form-control" name="insumo_{{ insumo['id'] }}" min="0" value="0">
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p>No hay insumos disponibles para registrar.</p>
+        {% endif %}
+
+        <button type="submit" class="btn btn-success mt-3">Guardar Aplicación</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

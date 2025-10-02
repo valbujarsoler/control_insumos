@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Anestesiólogos</h2>
+
+  <!-- Formulario para agregar -->
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+      Registrar Anestesiólogo
+    </div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('anestesiologos') }}">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre completo</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" required>
+        </div>
+        <button type="submit" class="btn btn-success">Guardar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lista de anestesiólogos -->
+  <div class="card">
+    <div class="card-header bg-secondary text-white">
+      Lista de Anestesiólogos
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-striped m-0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for anestesiologo in anestesiologos %}
+          <tr>
+            <td>{{ anestesiologo[0] }}</td>
+            <td>{{ anestesiologo[1] }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="2" class="text-center">No hay anestesiólogos registrados</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

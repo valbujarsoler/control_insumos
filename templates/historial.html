@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Historial del Paciente - {{ paciente[1] }}</h2>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <p><strong>Procedencia:</strong> {{ paciente[2] }}</p>
+      <p><strong>Médico:</strong> {{ paciente[3] }}</p>
+      <p><strong>Diagnóstico:</strong> {{ paciente[4] }}</p>
+      <p><strong>Anestesiólogo:</strong> {{ paciente[5] }}</p>
+      <p><strong>Enfermero(a):</strong> {{ paciente[6] }}</p>
+    </div>
+  </div>
+
+  {% if historial %}
+    {% for item in historial %}
+      <div class="card mb-3">
+        <div class="card-header bg-secondary text-white">
+          Aplicación N° {{ item.app[2] }} - Fecha: {{ item.app[3] }}
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-sm table-bordered m-0">
+            <thead><tr><th>Insumo</th><th>Cantidad</th></tr></thead>
+            <tbody>
+              {% if item.insumos %}
+                {% for ins in item.insumos %}
+                <tr><td>{{ ins[0] }}</td><td>{{ ins[1] }}</td></tr>
+                {% endfor %}
+              {% else %}
+                <tr><td colspan="2" class="text-center">No se registraron insumos</td></tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="alert alert-warning">No hay aplicaciones registradas para este paciente.</div>
+  {% endif %}
+
+  <a href="{{ url_for('pacientes') }}" class="btn btn-primary mt-3">Volver a Pacientes</a>
+</div>
+{% endblock %}

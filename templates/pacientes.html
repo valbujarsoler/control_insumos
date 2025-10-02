@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Registro de Pacientes</h2>
+  <!-- REGISTRO DE PACIENTES -->
+  <!-- Formulario para agregar paciente -->
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+      Registrar Paciente
+    </div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('pacientes') }}">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="nombre" class="form-label">Nombre del Paciente</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
+          </div>
+          <div class="col-md-6">
+             <label for="procedencia">Procedencia</label>
+    <select name="procedencia" class="form-control" required>
+        <option value="">Seleccione...</option>
+      <option value="ESSALUD">ESSALUD</option>
+      <option value="SIS">SIS</option>
+      <option value="SANNA">SANNA</option>
+      <option value="PARTICULAR">PARTICULAR</option>
+    </select>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="medico_id" class="form-label">Médico</label>
+            <select class="form-select" id="medico_id" name="medico_id" required>
+              <option value="">Seleccione...</option>
+              {% for medico in medicos %}
+              <option value="{{ medico[0] }}">{{ medico[1] }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="anestesiologo_id" class="form-label">Anestesiólogo</label>
+            <select class="form-select" id="anestesiologo_id" name="anestesiologo_id" required>
+              <option value="">Seleccione...</option>
+              {% for anest in anestesiologos %}
+              <option value="{{ anest[0] }}">{{ anest[1] }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="enfermero_id" class="form-label">Enfermero</label>
+            <select class="form-select" id="enfermero_id" name="enfermero_id" required>
+              <option value="">Seleccione...</option>
+              {% for enf in enfermeros %}
+              <option value="{{ enf[0] }}">{{ enf[1] }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="diagnostico" class="form-label">Diagnóstico</label>
+          <textarea class="form-control" id="diagnostico" name="diagnostico" rows="2" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Guardar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lista de pacientes -->
+  <div class="card">
+    <div class="card-header bg-secondary text-white">
+      Lista de Pacientes
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-striped m-0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Procedencia</th>
+            <th>Médico</th>
+            <th>Diagnóstico</th>
+            <th>Anestesiólogo</th>
+            <th>Enfermero</th>
+          
+          </tr>
+        </thead>
+        <tbody>
+          {% for paciente in pacientes %}
+          <tr>
+            <td>{{ paciente[0] }}</td>
+            <td>{{ paciente[1] }}</td>
+            <td>{{ paciente[2] }}</td>
+            <td>{{ paciente[3] }}</td>
+            <td>{{ paciente[4] }}</td>
+            <td>{{ paciente[5] }}</td>
+            <td>{{ paciente[6] }}</td>
+                      </tr>
+          {% else %}
+          <tr>
+            <td colspan="8" class="text-center">No hay pacientes registrados</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

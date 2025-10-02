@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Reporte de Insumos</h2>
+
+  <!-- Filtros -->
+  <form method="POST" class="row g-3 mb-4">
+    <div class="col-md-3">
+      <label for="anio" class="form-label">Año</label>
+      <input type="text" class="form-control" name="anio" value="{{ anio or '' }}" placeholder="2025">
+    </div>
+    <div class="col-md-3">
+      <label for="fecha_inicio" class="form-label">Fecha Inicio</label>
+      <input type="date" class="form-control" name="fecha_inicio" value="{{ fecha_inicio or '' }}">
+    </div>
+    <div class="col-md-3">
+      <label for="fecha_fin" class="form-label">Fecha Fin</label>
+      <input type="date" class="form-control" name="fecha_fin" value="{{ fecha_fin or '' }}">
+    </div>
+    <div class="col-md-3 d-flex align-items-end">
+      <button type="submit" class="btn btn-primary w-100">Aceptar</button>
+    </div>
+  </form>
+
+  <!-- Tabla de resultados -->
+  <div class="card">
+    <div class="card-header bg-secondary text-white">
+      Resultados
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-striped m-0">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Insumo</th>
+            <th>Cantidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in data %}
+          <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="3" class="text-center">No hay registros</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Botón Exportar CSV -->
+  <div class="mt-3">
+    <a href="{{ url_for('exportar_insumos_csv') }}" class="btn btn-success">Exportar CSV</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Catálogo de Insumos</h2>
+
+  <!-- Formulario para agregar insumo -->
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+      Registrar Insumo
+    </div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('insumos') }}">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre del Insumo</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Guardar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lista de insumos -->
+  <div class="card">
+    <div class="card-header bg-secondary text-white">
+      Lista de Insumos
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-striped m-0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for insumo in insumos %}
+          <tr>
+            <td>{{ insumo[0] }}</td>
+            <td>{{ insumo[1] }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="2" class="text-center">No hay insumos registrados</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

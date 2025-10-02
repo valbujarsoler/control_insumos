@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Reporte por Pacientes</h2>
+
+  <!-- Lista de pacientes -->
+  <div class="card">
+    <div class="card-header bg-secondary text-white">
+      Lista de Pacientes
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-striped m-0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Procedencia</th>
+            <th>Médico</th>
+            <th>Diagnóstico</th>
+            <th>Anestesiólogo</th>
+            <th>Enfermero</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for paciente in pacientes %}
+          <tr>
+            <td>{{ paciente[0] }}</td>
+            <td>{{ paciente[1] }}</td>
+            <td>{{ paciente[2] }}</td>
+            <td>{{ paciente[3] }}</td>
+            <td>{{ paciente[4] }}</td>
+            <td>{{ paciente[5] }}</td>
+            <td>{{ paciente[6] }}</td>
+            <td>
+              <a href="{{ url_for('historial', paciente_id=paciente[0]) }}" class="btn btn-sm btn-info">
+                Ver Historial
+              </a>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="8" class="text-center">No hay pacientes registrados</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
